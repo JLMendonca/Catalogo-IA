@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Ferramentas de IA — Referência Rápida (Jun/2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15172b;
+    --ink-soft:#41435c;
+    --paper:#f4f3ee;
+    --surface:#ffffff;
+    --line:#e2e0d6;
+    --line-strong:#c9c6b8;
+    --brand:#4b3bd6;
+    --brand-soft:#ece9fb;
+
+    --free-fg:#0f6b43;   --free-bg:#dcf2e6;   --free-line:#9bd6b6;
+    --freemium-fg:#8a5a00; --freemium-bg:#f8eccf; --freemium-line:#e6c879;
+    --paid-fg:#a51f2b;   --paid-bg:#fbe2e2;   --paid-line:#eaa6a6;
+
+    --shadow:0 1px 2px rgba(21,23,43,.06), 0 8px 28px rgba(21,23,43,.07);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px;}
+
+  /* ---------- HEADER ---------- */
+  header.top{
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(120% 140% at 88% -20%, rgba(75,59,214,.10), transparent 60%),
+      var(--paper);
+  }
+  .top-inner{padding:38px 22px 30px;max-width:1180px;margin:0 auto;}
+  .kicker{
+    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--brand);font-weight:500;
+  }
+  h1{
+    font-family:"Space Grotesk",sans-serif;font-weight:700;
+    font-size:clamp(28px,4.6vw,46px);line-height:1.04;letter-spacing:-.02em;
+    margin:.32em 0 .18em;max-width:18ch;
+  }
+  h1 .accent{
+    background:linear-gradient(180deg,transparent 62%, #d9d3f7 62%);
+    padding:0 .04em;
+  }
+  .sub{color:var(--ink-soft);font-size:16px;max-width:62ch;margin:0;}
+  .byline{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft);
+    margin:2px 0 14px;}
+  .byline b{color:var(--brand);font-weight:700;}
+  .byline .ver{display:inline-block;background:var(--brand);color:#fff;font-weight:700;
+    font-size:11px;padding:2px 8px;border-radius:999px;letter-spacing:.02em;
+    vertical-align:middle;margin:0 2px;}
+  .meta-row{
+    display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;
+    font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-soft);
+  }
+  .meta-row b{color:var(--ink);font-weight:700;}
+
+  /* ---------- LEGEND ---------- */
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .tierchip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;
+    padding:7px 11px;border-radius:999px;border:1px solid;
+  }
+  .tierchip .dot{width:9px;height:9px;border-radius:50%;}
+  .t-free{background:var(--free-bg);color:var(--free-fg);border-color:var(--free-line);}
+  .t-free .dot{background:var(--free-fg);}
+  .t-freemium{background:var(--freemium-bg);color:var(--freemium-fg);border-color:var(--freemium-line);}
+  .t-freemium .dot{background:var(--freemium-fg);}
+  .t-paid{background:var(--paid-bg);color:var(--paid-fg);border-color:var(--paid-line);}
+  .t-paid .dot{background:var(--paid-fg);}
+
+  /* ---------- CONTROLS ---------- */
+  .controls{position:sticky;top:0;z-index:30;background:rgba(244,243,238,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .controls-inner{max-width:1180px;margin:0 auto;padding:14px 22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+  .search{
+    flex:1 1 240px;min-width:0;display:flex;align-items:center;gap:9px;
+    background:var(--surface);border:1px solid var(--line-strong);
+    border-radius:10px;padding:9px 13px;
+  }
+  .search input{border:0;outline:0;background:transparent;font-size:15px;width:100%;
+    font-family:"Inter",sans-serif;color:var(--ink);}
+  .search svg{flex:0 0 auto;color:var(--ink-soft);}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;}
+  .fbtn{
+    font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;
+    border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);
+    padding:7px 11px;border-radius:999px;cursor:pointer;transition:.15s;
+  }
+  .fbtn:hover{border-color:var(--ink);color:var(--ink);}
+  .fbtn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .fbtn.tf.active{background:var(--free-fg);border-color:var(--free-fg);}
+  .fbtn.tq.active{background:var(--freemium-fg);border-color:var(--freemium-fg);}
+  .fbtn.tp.active{background:var(--paid-fg);border-color:var(--paid-fg);}
+
+  /* ---------- CATEGORY NAV ---------- */
+  .catnav{display:flex;gap:8px;flex-wrap:wrap;padding:18px 0 4px;}
+  .catnav a{
+    font-family:"JetBrains Mono",monospace;font-size:12px;text-decoration:none;
+    color:var(--ink-soft);border:1px solid var(--line);background:var(--surface);
+    padding:7px 12px;border-radius:8px;transition:.15s;
+  }
+  .catnav a:hover{color:var(--brand);border-color:var(--brand);}
+  .catnav a .code{color:var(--brand);font-weight:700;margin-right:6px;}
+
+  /* ---------- SECTIONS ---------- */
+  section.cat{padding:30px 0 8px;scroll-margin-top:78px;}
+  .cat-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:18px;}
+  .cat-code{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--brand);
+    font-size:14px;letter-spacing:.05em;}
+  .cat-head h2{font-family:"Space Grotesk",sans-serif;font-weight:600;
+    font-size:clamp(20px,2.6vw,26px);margin:0;letter-spacing:-.01em;}
+  .cat-head .count{font-family:"JetBrains Mono",monospace;font-size:12px;
+    color:var(--ink-soft);margin-left:auto;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+
+  .card{
+    text-align:left;cursor:pointer;background:var(--surface);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 16px 14px;display:flex;flex-direction:column;gap:9px;
+    transition:transform .15s, box-shadow .15s, border-color .15s;
+    font-family:inherit;color:inherit;position:relative;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--line-strong);}
+  .card:focus-visible{outline:2.5px solid var(--brand);outline-offset:2px;}
+  .card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .card-code{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);
+    letter-spacing:.04em;}
+  .pill{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;
+    padding:3px 8px;border-radius:999px;border:1px solid;white-space:nowrap;}
+  .pill.t-free{background:var(--free-bg);color:var(--free-fg);border-color:var(--free-line);}
+  .pill.t-freemium{background:var(--freemium-bg);color:var(--freemium-fg);border-color:var(--freemium-line);}
+  .pill.t-paid{background:var(--paid-bg);color:var(--paid-fg);border-color:var(--paid-line);}
+  .card h3{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:18px;
+    margin:0;letter-spacing:-.01em;}
+  .card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+  .card .open{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--brand);
+    margin-top:auto;display:inline-flex;align-items:center;gap:5px;font-weight:500;}
+
+  .empty{display:none;text-align:center;padding:60px 20px;color:var(--ink-soft);
+    font-family:"JetBrains Mono",monospace;}
+
+  /* ---------- DETAIL PANEL ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(21,23,43,.42);backdrop-filter:blur(2px);
+    opacity:0;pointer-events:none;transition:opacity .2s;z-index:80;}
+  .scrim.show{opacity:1;pointer-events:auto;}
+  .panel{
+    position:fixed;top:0;right:0;height:100%;width:min(520px,100%);
+    background:var(--surface);z-index:90;transform:translateX(102%);
+    transition:transform .26s cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(21,23,43,.18);
+  }
+  .panel.show{transform:translateX(0);}
+  .panel-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);position:relative;}
+  .panel-head .ribbon{height:4px;border-radius:4px;width:54px;margin-bottom:14px;}
+  .panel-code{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-soft);
+    letter-spacing:.05em;display:flex;gap:10px;align-items:center;}
+  .panel h2{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:26px;
+    margin:8px 0 6px;letter-spacing:-.02em;}
+  .panel-cat{font-size:13px;color:var(--ink-soft);}
+  .closebtn{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:9px;
+    border:1px solid var(--line);background:var(--paper);cursor:pointer;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .closebtn:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .panel-body{padding:6px 24px 26px;overflow-y:auto;}
+  .field{padding:18px 0;border-bottom:1px solid var(--line);}
+  .field:last-of-type{border-bottom:0;}
+  .flabel{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;display:flex;
+    align-items:center;gap:8px;}
+  .flabel .ic{width:15px;height:15px;}
+  .field p{margin:0;font-size:15px;color:var(--ink);line-height:1.55;}
+  ul.bullets{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+  ul.bullets li{font-size:14.5px;padding-left:22px;position:relative;line-height:1.5;}
+  ul.bullets li::before{position:absolute;left:0;top:0;font-family:"JetBrains Mono",monospace;
+    font-weight:700;}
+  ul.pros li::before{content:"+";color:var(--free-fg);}
+  ul.cons li::before{content:"–";color:var(--paid-fg);}
+  .costbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:13px 15px;font-size:14.5px;}
+  .links{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+  .lbtn{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    text-decoration:none;border-radius:10px;padding:13px 16px;font-size:14.5px;
+    font-weight:600;transition:.15s;border:1px solid;}
+  .lbtn.primary{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .lbtn.primary:hover{background:#3a2cb8;}
+  .lbtn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong);}
+  .lbtn.ghost:hover{border-color:var(--ink);}
+  .lbtn .arrow{font-family:"JetBrains Mono",monospace;}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:40px;border-top:1px solid var(--line);padding:30px 0 60px;
+    color:var(--ink-soft);font-size:13px;}
+  footer .wrap{display:flex;flex-direction:column;gap:10px;}
+  footer b{color:var(--ink);}
+  .disclaimer{background:#fff;border:1px solid var(--freemium-line);border-left:4px solid var(--freemium-fg);
+    border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--ink-soft);margin-top:20px;}
+  .disclaimer b{color:var(--ink);}
+
+  @media (max-width:560px){
+    .top-inner{padding:30px 22px 24px;}
+    .cat-head .count{width:100%;margin-left:0;}
+    .panel-body{padding:6px 18px 26px;}
+    .panel-head{padding:20px 18px 16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="kicker">Referência rápida · atualizado jun/2026</div>
+    <h1>Catálogo de <span class="accent">Ferramentas de IA</span> por atividade</h1>
+    <div class="byline">Organizado by <span class="ver">versão 1.1</span> <b>Jose Luiz Mendonca</b></div>
+    <p class="sub">Índice classificado para agências criativas e digitais. Cada ferramenta abre uma ficha-resumo com função, custo, vantagens, limitações, link oficial e exemplos reais na web.</p>
+    <div class="meta-row">
+      <span><b id="count-total">—</b> ferramentas</span>
+      <span><b id="count-cat">9</b> categorias</span>
+      <span><b id="count-free">—</b> totalmente free</span>
+    </div>
+    <div class="legend">
+      <span class="tierchip t-free"><span class="dot"></span>Totalmente Free — núcleo 100% gratuito</span>
+      <span class="tierchip t-freemium"><span class="dot"></span>Quase Free — plano grátis + limites/marca d'água</span>
+      <span class="tierchip t-paid"><span class="dot"></span>Paga — só teste ou exige assinatura</span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <label class="search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Buscar ferramenta ou função…" autocomplete="off">
+    </label>
+    <div class="filters" id="tier-filters">
+      <button class="fbtn active" data-tier="all">Todas</button>
+      <button class="fbtn tf" data-tier="free">Free</button>
+      <button class="fbtn tq" data-tier="freemium">Quase Free</button>
+      <button class="fbtn tp" data-tier="paid">Pagas</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="catnav" id="catnav"></nav>
+  <div id="sections"></div>
+  <div class="empty" id="empty">Nenhuma ferramenta encontrada para esse filtro.</div>
+
+  <div class="disclaimer">
+    <b>Sobre a classificação:</b> tiers e preços refletem o cenário de <b>junho de 2026</b> e mudam com frequência (planos, créditos e marcas d'água são revistos quase todo mês). Use o catálogo como mapa e confirme sempre no link oficial antes de decidir. O botão "Ver exemplos na web" abre uma busca curada por trabalhos reais feitos com a ferramenta.
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>Catálogo de Ferramentas de IA</b> — montado a partir do levantamento (Deep Research) + curadoria adicional, com destaque para a categoria <b>Programação & Desenvolvimento</b>.</span>
+    <span>Tudo roda offline neste arquivo — você pode salvar, abrir no navegador e compartilhar.</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panel-name">
+  <div class="panel-head">
+    <button class="closebtn" id="closebtn" aria-label="Fechar ficha">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="ribbon" id="panel-ribbon"></div>
+    <div class="panel-code"><span id="panel-code">—</span><span id="panel-pill"></span></div>
+    <h2 id="panel-name">—</h2>
+    <div class="panel-cat" id="panel-cat">—</div>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+</aside>
+
+<script>
+/* ============================================================
+   DADOS — categorias e ferramentas (jun/2026)
+   tier: "free" (Totalmente Free) | "freemium" (Quase Free) | "paid" (Paga)
+   ============================================================ */
+const CATS = [
+  {code:"AST", name:"Assistentes de IA · Texto, Chat & Pesquisa"},
+  {code:"MKT", name:"Marketing, SEO & Copywriting"},
+  {code:"DSG", name:"Design Gráfico & Imagem"},
+  {code:"VID", name:"Vídeo & Áudio"},
+  {code:"WEB", name:"Sites, Apresentações & Landing Pages"},
+  {code:"PRJ", name:"Gestão de Projetos & Produtividade"},
+  {code:"AUT", name:"Automação & No-code"},
+  {code:"DEV", name:"Programação & Desenvolvimento"},
+  {code:"EDU", name:"Educação & Aprendizado"},
+];
+
+const T = {
+  // ---------------- AST ----------------
+  AST:[
+    {n:"ChatGPT", tier:"freemium", url:"https://chat.openai.com",
+     fn:"Assistente generalista — escreve, resume, traduz, analisa arquivos (PDF/planilha/imagem), gera imagens e código. O 'canivete suíço' da IA.",
+     cost:"Grátis (GPT-5.5 Instant, ~10 msgs avançadas a cada 5h). Go ~US$8/mês, Plus US$20/mês, Pro US$200/mês.",
+     pros:["Mais versátil do mercado, tudo num lugar só","Versão grátis já analisa arquivos e gera imagens","Ecossistema de GPTs e integrações"],
+     cons:["Limite diário no modo avançado","Janela de contexto curta no grátis (~12 páginas)","Pode 'alucinar' — exige conferência"]},
+    {n:"Google Gemini", tier:"freemium", url:"https://gemini.google.com",
+     fn:"Assistente do Google integrado a Gmail, Docs e Workspace. Forte em pesquisa na web, raciocínio e contexto brasileiro (legislação, temas locais).",
+     cost:"Grátis (Gemini Flash). Planos AI Pro/Ultra dentro do Google One para modelos maiores e limites altos.",
+     pros:["Integração nativa com Google Workspace","Excelente para busca e temas brasileiros","Janela de contexto muito grande"],
+     cons:["Recursos completos exigem assinatura","Qualidade de escrita criativa abaixo de Claude","Privacidade dentro do ecossistema Google"]},
+    {n:"Claude", tier:"freemium", url:"https://claude.ai",
+     fn:"Modelo da Anthropic, referência em textos longos, análise de documentos, raciocínio e criação de artefatos/arquivos. Ótimo português.",
+     cost:"Grátis com limite diário de mensagens. Pro US$20/mês (US$17 anual), Max US$100/200.",
+     pros:["Melhor para escrita e análise de relatórios extensos","Cria artefatos, exporta arquivos e usa skills","Tom natural em português"],
+     cons:["Limites diários variam com a ocupação","Sem geração de imagem própria","Acesso à web depende de ferramentas ativadas"]},
+    {n:"Microsoft Copilot", tier:"freemium", url:"https://copilot.microsoft.com",
+     fn:"Assistente da Microsoft integrado ao Windows e ao pacote Office (Word, Excel, Outlook, PowerPoint). Inclui geração de imagem via DALL·E.",
+     cost:"Grátis com funções básicas. Copilot Pro e Microsoft 365 Copilot (empresarial) para recursos no Office.",
+     pros:["Embutido no Windows e Office","Gera imagens (DALL·E 3) de graça","Bom para documentos e e-mails corporativos"],
+     cons:["Análise de arquivos menos precisa que ChatGPT","Não exporta arquivos no grátis","Melhor proveito exige licença 365"]},
+    {n:"Perplexity AI", tier:"freemium", url:"https://www.perplexity.ai",
+     fn:"Motor de pesquisa com IA — responde com fontes citadas e verificáveis em tempo real. Substitui o Google para pesquisa aprofundada.",
+     cost:"Grátis (uso generoso). Pro ~US$20/mês com acesso a modelos premium e Deep Research.",
+     pros:["Respostas com fontes citadas e atuais","Plano grátis realmente útil e ilimitado para buscas","Pro dá acesso a GPT/Claude por dentro"],
+     cons:["Foco em pesquisa, não em criação","Profundidade extra só no Pro","Pode citar fontes fracas — vale checar"]},
+    {n:"NotebookLM", tier:"free", url:"https://notebooklm.google.com",
+     fn:"Do Google: você sobe suas fontes (PDFs, áudios, sites) e cria um especialista ancorado só nesses dados. Gera resumos, guias de estudo e podcast em áudio.",
+     cost:"Totalmente grátis: até 100 notebooks, 50 fontes cada, 500 mil palavras por notebook.",
+     pros:["100% grátis e muito generoso","Responde só com base nas SUAS fontes (menos alucinação)","Audio Overview transforma docs em podcast"],
+     cons:["Não serve como chatbot genérico","Depende da qualidade das fontes enviadas","Dados processados pelo Google"]},
+    {n:"Grammarly", tier:"freemium", url:"https://www.grammarly.com",
+     fn:"Revisão de escrita com IA — corrige gramática, clareza e tom. Forte em inglês; útil para conteúdo e e-mails corporativos.",
+     cost:"Grátis (correções básicas). Premium para reescritas avançadas e ajustes de estilo.",
+     pros:["Correção em tempo real no navegador","Plano grátis funcional para o básico","Bom para clareza e tom"],
+     cons:["Reescrita avançada só no pago","Mais forte em inglês que em português","Pode ser repetitivo nas sugestões"]},
+  ],
+  // ---------------- MKT ----------------
+  MKT:[
+    {n:"Copy.ai", tier:"freemium", url:"https://www.copy.ai/",
+     fn:"Plataforma de copywriting — headlines, e-mail marketing, roteiros comerciais e descrições. Foco em automação de texto de vendas.",
+     cost:"Cota grátis de ~2.000 palavras/mês geradas por IA. Planos pagos para volume e workflows.",
+     pros:["Templates prontos de copy comercial","Bom para acelerar campanhas de e-mail","Cura o problema do 'quadro em branco'"],
+     cons:["Cota grátis baixa (2.000 palavras/mês)","Texto genérico sem boa edição humana","Recursos de GTM só no pago"]},
+    {n:"Writesonic", tier:"freemium", url:"https://writesonic.com",
+     fn:"Redação por IA para blog, anúncios e SEO. Gera artigos longos e copies otimizados para busca.",
+     cost:"Plano grátis com créditos limitados. Pagos por volume de palavras e recursos de SEO.",
+     pros:["Bom para artigos longos otimizados","Vários formatos de marketing num só lugar","Integra pesquisa de SEO"],
+     cons:["Créditos grátis acabam rápido","Saída exige revisão de fato","Qualidade varia por nicho"]},
+    {n:"Jasper", tier:"paid", url:"https://www.jasper.ai",
+     fn:"Plataforma corporativa de criação de conteúdo de marca, com brand voice e fluxos de campanha em escala.",
+     cost:"Sem plano grátis permanente — apenas teste. Assinatura a partir de planos mensais.",
+     pros:["Mantém voz de marca consistente","Forte para equipes de marketing","Workflows de campanha completos"],
+     cons:["Sem versão gratuita real (só trial)","Caro para uso individual","Curva de aprendizado maior"]},
+    {n:"Niara", tier:"freemium", url:"https://niara.ai",
+     fn:"Ferramenta brasileira de SEO: transforma vídeos do YouTube em artigos (HTML/Markdown), gera dados estruturados Schema JSON-LD e analisa textos para busca.",
+     cost:"Utilitários básicos de SEO grátis; planos pagos com 7 dias de teste.",
+     pros:["Foco em SEO e em português/Brasil","Gera Schema JSON-LD para autoridade no Google","Converte vídeo em artigo estruturado"],
+     cons:["Grátis limitado aos utilitários básicos","Recursos avançados só nos planos pagos","Menos conhecida que concorrentes globais"]},
+    {n:"Semrush", tier:"paid", url:"https://www.semrush.com",
+     fn:"Suíte completa de SEO e marketing — pesquisa de palavras-chave, análise de concorrentes, backlinks e auditoria de site.",
+     cost:"Poucas buscas grátis por dia; uso real exige assinatura (planos mensais altos).",
+     pros:["Referência em inteligência de SEO","Dados profundos de concorrência","Auditoria técnica robusta"],
+     cons:["Free é só uma amostra","Caro para PMEs","Complexa para iniciantes"]},
+    {n:"AnswerThePublic", tier:"freemium", url:"https://answerthepublic.com",
+     fn:"Mapeia as perguntas reais que as pessoas pesquisam sobre um tema — ótimo para pauta de conteúdo e SEO.",
+     cost:"Algumas buscas grátis por dia. Plano pago para uso ilimitado e dados extras.",
+     pros:["Excelente para ideias de pauta","Visualização clara das dúvidas do público","Rápido para validar nichos"],
+     cons:["Limite diário no grátis","Dados em PT-BR mais rasos","Foco estreito (só pesquisa de perguntas)"]},
+    {n:"HubSpot CRM AI", tier:"freemium", url:"https://hubspot.com/products/crm",
+     fn:"CRM com IA que redige e-mails de vendas personalizados, gerencia leads e sugere otimizações de conversão.",
+     cost:"CRM com plano grátis; recursos de IA atrelados às capacidades básicas. Hubs pagos para escala.",
+     pros:["CRM grátis robusto para começar","IA integrada ao funil de vendas","Bom para alinhar marketing e vendas"],
+     cons:["Recursos de IA limitados no grátis","Custo escala rápido nos hubs","Pode ser demais para times pequenos"]},
+    {n:"Mailchimp", tier:"freemium", url:"https://mailchimp.com",
+     fn:"E-mail marketing e automação com IA para criação de campanhas, segmentação e recomendações de envio.",
+     cost:"Plano grátis para listas pequenas. Pagos por número de contatos e automações.",
+     pros:["Clássico de e-mail marketing","IA ajuda em copy e horário de envio","Bom para começar listas"],
+     cons:["Preço sobe com a lista","Automações avançadas só no pago","Entregabilidade exige cuidado"]},
+    {n:"Mixo.io", tier:"freemium", url:"https://mixo.io",
+     fn:"Cria landing pages de captação de alta conversão em segundos a partir de uma descrição textual simples.",
+     cost:"Plano grátis para começar; pagos liberam domínio personalizado e integrações.",
+     pros:["Página no ar em segundos","Ótimo para validar ideias e captar leads","Sem necessidade de código"],
+     cons:["Personalização de domínio limitada no grátis","Integrações restritas sem pagar","Menos flexível que builders completos"]},
+    {n:"TubeBuddy", tier:"freemium", url:"https://www.tubebuddy.com",
+     fn:"Otimização e crescimento de canais no YouTube — pesquisa de tags, SEO de vídeo, testes A/B de thumbnail e analytics.",
+     cost:"Plano grátis com recursos básicos. Pagos para SEO avançado e testes.",
+     pros:["Foco em crescer no YouTube","Pesquisa de keywords de vídeo","Testes A/B de thumbnails"],
+     cons:["Melhores recursos no pago","Específico para YouTube","Pode poluir a interface do estúdio"]},
+  ],
+  // ---------------- DSG ----------------
+  DSG:[
+    {n:"Canva (Magic Studio)", tier:"freemium", url:"https://canva.com",
+     fn:"Suíte gráfica completa com IA: gera layouts e imagens, redimensiona automático, borracha mágica e Magic Design. Resultado pronto para publicar.",
+     cost:"Plano grátis generoso. Canva Pro ~US$12/mês libera IA avançada e elementos premium.",
+     pros:["Faz design profissional sem ser designer","Entrega arte final pronta, não imagem crua","Milhares de templates"],
+     cons:["IA avançada e premium só no Pro","Resultados podem ficar 'cara de template'","Marca d'água em alguns elementos grátis"]},
+    {n:"Microsoft Designer", tier:"free", url:"https://designer.microsoft.com",
+     fn:"Traduz prompts em banners, carrosséis e posts dinâmicos — sem marca d'água. Inclui geração de imagem via DALL·E.",
+     cost:"Grátis com conta Microsoft. Sem marca d'água no resultado.",
+     pros:["Grátis e sem marca d'água","Gera imagem (DALL·E) embutida","Bom para social media rápido"],
+     cons:["Depende de conta Microsoft","Consistência visual varia","Menos controle fino que Canva/Adobe"]},
+    {n:"Adobe Firefly", tier:"freemium", url:"https://www.adobe.com/products/firefly/",
+     fn:"Geração de imagem treinada só em conteúdo licenciado/domínio público — segura para uso comercial e publicidade, sem risco jurídico de marca.",
+     cost:"Créditos mensais grátis (com marca d'água). Uso comercial pleno via créditos pagos / Creative Cloud.",
+     pros:["Imagens comercialmente seguras (treino licenciado)","Alta resolução e fidelidade","Integra ao Photoshop/Creative Cloud"],
+     cons:["Grátis tem marca d'água e poucos créditos","Uso pro depende de assinatura","Menos 'artístico' que Midjourney"]},
+    {n:"Leonardo.AI", tier:"freemium", url:"https://leonardo.ai",
+     fn:"Geração de artes, texturas realistas e modelos 3D com controle fino de iluminação e estilo. Adquirida pela Canva em 2024.",
+     cost:"Cota diária renovável de ~150 créditos grátis. Planos pagos (Essential ~US$12/mês) para volume.",
+     pros:["Cota diária grátis renovável","Controle avançado de estilo e modelos","Bom para texturas e game art"],
+     cons:["Créditos diários acabam rápido","Curva de aprendizado nos parâmetros","Fila/lentidão em horários de pico"]},
+    {n:"Ideogram", tier:"freemium", url:"https://ideogram.ai",
+     fn:"O melhor gerador para imagens COM TEXTO legível — logos, pôsteres, thumbnails e capas com tipografia que de fato sai escrita certa.",
+     cost:"Grátis: ~10 prompts/dia (4 variações cada = 40 imagens/dia). Pagos para volume e privacidade.",
+     pros:["Renderiza texto legível nas imagens","Ótimo para capas, pôsteres e logos","Plano grátis diário generoso"],
+     cons:["Imagens grátis ficam públicas na galeria","Limite diário de prompts","Foco em tipografia, não em foto-realismo"]},
+    {n:"Midjourney", tier:"paid", url:"https://www.midjourney.com",
+     fn:"Referência em imagem artística de alta fidelidade estética. Estilo cinematográfico e controle criativo profundo.",
+     cost:"Sem plano grátis — assinatura a partir de ~US$10/mês. Pro até ~US$60/mês.",
+     pros:["Qualidade artística no topo do mercado","Estética cinematográfica consistente","Comunidade e estilos fortes"],
+     cons:["Não tem tier gratuito","Direitos de treino menos 'seguros' que Firefly","Controle preciso exige prática"]},
+    {n:"Krea.ai", tier:"freemium", url:"https://www.krea.ai",
+     fn:"Geração e edição de arte/foto com IA em tempo real — upscaling, enhance e geração com controle visual ao vivo.",
+     cost:"Plano grátis com créditos. Pagos para tempo real ilimitado e alta resolução.",
+     pros:["Geração em tempo real, muito visual","Bom upscaling e enhance de fotos","Interface criativa e fluida"],
+     cons:["Créditos grátis limitados","Alta resolução só no pago","Exige máquina/conexão boas"]},
+    {n:"Looka", tier:"freemium", url:"https://looka.com",
+     fn:"Geração rápida de logos e identidade visual por IA a partir do nome e do estilo da marca.",
+     cost:"Criar e visualizar grátis; baixar os arquivos do logo exige pagamento (pacotes).",
+     pros:["Logo pronto em minutos","Gera kit de identidade visual","Bom ponto de partida para marcas novas"],
+     cons:["Download dos arquivos é pago","Resultados podem se repetir entre clientes","Pouca originalidade tipográfica"]},
+    {n:"Uizard", tier:"freemium", url:"https://uizard.io",
+     fn:"Transforma rascunhos à mão e wireframes em protótipos digitais navegáveis de apps e sites — prototipagem de UI/UX por IA.",
+     cost:"Grátis com limite de projetos ativos e exportação de código restrita. Pagos liberam mais.",
+     pros:["Converte papel em tela editável","Acelera muito a prototipagem de UI","Bom para validar ideias de produto"],
+     cons:["Poucos projetos ativos no grátis","Exportação de código limitada","Não substitui Figma para alta fidelidade"]},
+    {n:"Remove.bg", tier:"freemium", url:"https://www.remove.bg",
+     fn:"Remove o fundo de fotos instantaneamente com alta precisão de contorno.",
+     cost:"Prévia grátis; baixar em resolução máxima consome créditos pagos.",
+     pros:["Recorte automático preciso","Instantâneo, sem esforço","API para automação"],
+     cons:["Alta resolução é paga (créditos)","Casos complexos (cabelo) ainda falham","Função única e estreita"]},
+    {n:"Unsplash", tier:"free", url:"https://unsplash.com",
+     fn:"Banco de imagens de alta qualidade, gratuitas para uso comercial — fotografia real para complementar peças.",
+     cost:"Totalmente grátis (licença Unsplash, uso comercial liberado).",
+     pros:["Fotos profissionais 100% grátis","Uso comercial sem royalties","Curadoria de alta qualidade"],
+     cons:["Imagens muito usadas viram clichê","Sem geração por IA","Atribuição é boa prática"]},
+    {n:"Figma (AI)", tier:"freemium", url:"https://www.figma.com",
+     fn:"Padrão de design de interface, agora com recursos de IA (geração de layout, first draft, edição inteligente) para UI/UX colaborativo.",
+     cost:"Plano grátis para projetos pessoais. Pagos por editor para times e recursos de IA.",
+     pros:["Padrão da indústria em UI/UX","Colaboração em tempo real","IA acelera primeiros rascunhos"],
+     cons:["IA mais forte nos planos pagos","Curva de aprendizado para iniciantes","Limite de arquivos no grátis"]},
+  ],
+  // ---------------- VID ----------------
+  VID:[
+    {n:"DaVinci Resolve", tier:"free", url:"https://www.blackmagicdesign.com/products/davinciresolve",
+     fn:"Suíte profissional de edição, áudio (Fairlight), efeitos (Fusion) e colorização — com IA local (rastreamento de máscara, isolamento de voz) e exportação limpa até 4K.",
+     cost:"Versão gratuita completíssima. Studio (licença única) libera recursos extras.",
+     pros:["Único pro-grade 100% grátis sem créditos de nuvem","Processamento LOCAL — sem marca d'água, exporta 4K","Cores de cinema (padrão de Hollywood)"],
+     cons:["Exige PC potente com GPU dedicada","Curva de aprendizado íngreme","Alguns recursos de IA só no Studio"]},
+    {n:"CapCut", tier:"freemium", url:"https://www.capcut.com",
+     fn:"Editor ágil para redes sociais — legendagem automática, gerador de voz, transições de tendência e templates virais.",
+     cost:"Grátis com exportação limpa até 4K no desktop; ferramentas premium atrás de paywall.",
+     pros:["Rapidíssimo para Reels/Shorts/TikTok","Legenda automática boa","Exporta 4K limpo no desktop"],
+     cons:["Recursos premium pagos","Histórico de questões de privacidade/dados","'Cara de CapCut' nos templates"]},
+    {n:"Descript", tier:"freemium", url:"https://www.descript.com",
+     fn:"Edita vídeo/áudio apagando palavras de um TEXTO transcrito. Inclui clonagem de voz (Overdub), remoção de ruído e de hesitações ('hum', 'tipo').",
+     cost:"Grátis: ~1h/mês de transcrição e export 720p sem marca d'água. Pagos para mais.",
+     pros:["Edição por texto muda o jogo para podcast/talking head","Overdub conserta fala sem regravar","Remove 'né', 'tipo' automaticamente"],
+     cons:["1h/mês de transcrição no grátis","Export limitado a 720p sem pagar","Não é editor de timeline tradicional"]},
+    {n:"VEED.IO", tier:"freemium", url:"https://www.veed.io/",
+     fn:"Editor web para marketing — correção de olhar (eye contact), legendagem e tradução de voz integradas.",
+     cost:"Grátis com marca d'água nos exports. Pagos removem marca e elevam resolução.",
+     pros:["Roda no navegador, sem instalar","Correção de olhar e tradução de voz","Legendas multilíngues"],
+     cons:["Marca d'água no plano grátis","Resolução limitada sem pagar","Depende de boa conexão"]},
+    {n:"Kapwing", tier:"freemium", url:"https://www.kapwing.com/ai",
+     fn:"Editor no navegador com geração de storyboards, legendagem rápida e roteiros estruturados por IA.",
+     cost:"Grátis: export 720p, marca d'água e limite de tamanho de projeto. Pagos liberam o resto.",
+     pros:["Tudo no navegador, colaborativo","Bom para legendas e cortes rápidos","Gera storyboard e roteiro"],
+     cons:["Marca d'água e 720p no grátis","Limite de tamanho de projeto","Performance depende da web"]},
+    {n:"Vmaker AI", tier:"freemium", url:"https://www.vmaker.com/ai-video-editor",
+     fn:"Transforma vídeos longos em clipes curtos dinâmicos, com legendas e trilhas automáticas.",
+     cost:"Plano básico/teste com limite mensal de conversões. Pagos para volume.",
+     pros:["Reaproveita conteúdo longo em cortes","Legenda e trilha automáticas","Bom para volume de social"],
+     cons:["Volume mensal limitado no grátis","Cortes nem sempre acertam o melhor trecho","Menos controle fino"]},
+    {n:"Runway", tier:"freemium", url:"https://runwayml.com",
+     fn:"Geração e edição de vídeo por IA (text-to-video, Gen-3/4), efeitos avançados e ferramentas mágicas de pós.",
+     cost:"Créditos grátis limitados. Pagos por volume de geração e alta resolução.",
+     pros:["Geração de vídeo por IA de ponta","Efeitos impossíveis em editores comuns","Constante evolução de modelos"],
+     cons:["Créditos grátis acabam muito rápido","Marca d'água/limites no free","Resultados ainda imprevisíveis"]},
+    {n:"Pictory", tier:"paid", url:"https://pictory.ai",
+     fn:"Transforma texto/artigos e roteiros em vídeo automaticamente, com narração e trilha — bom para conteúdo em escala.",
+     cost:"Basicamente teste limitado; uso real exige assinatura mensal.",
+     pros:["Texto vira vídeo automaticamente","Bom para blog-to-video","Biblioteca de mídia integrada"],
+     cons:["Sem free real (só trial)","Vídeos podem ficar genéricos","Pouca personalização fina"]},
+    {n:"InVideo", tier:"freemium", url:"https://invideo.io",
+     fn:"Editor que transforma prompt/texto em vídeo pronto, com templates de marketing e voz por IA.",
+     cost:"Plano grátis com marca d'água e limite semanal de minutos de IA. Pagos liberam o resto.",
+     pros:["Prompt vira vídeo completo","Muitos templates de marketing","Voz por IA integrada"],
+     cons:["Marca d'água no grátis","Minutos de IA limitados por semana","Edição fina é limitada"]},
+    {n:"Kling AI", tier:"freemium", url:"https://klingai.com",
+     fn:"Geração de vídeo por IA de alta qualidade a partir de texto/imagem — movimento realista e cenas curtas.",
+     cost:"Créditos diários grátis. Pagos para mais gerações, duração e resolução.",
+     pros:["Vídeo IA com movimento convincente","Créditos diários grátis","Image-to-video forte"],
+     cons:["Créditos grátis limitados","Filas em horário de pico","Clipes curtos no free"]},
+    {n:"Elai.io", tier:"paid", url:"https://elai.io",
+     fn:"Gera vídeos de treinamento e apresentações com avatares de IA — sem câmera, a partir de texto/slides.",
+     cost:"Modelo pago (com teste). Cobrado por minutos de vídeo gerados.",
+     pros:["Vídeo com avatar sem precisar de câmera","Ótimo para treinamento/onboarding","Converte apresentação em vídeo"],
+     cons:["Avatares ainda parecem artificiais","Sem free permanente","Custo por minuto sobe rápido"]},
+    {n:"Synthesia", tier:"paid", url:"https://www.synthesia.io",
+     fn:"Plataforma líder de vídeo com avatares de IA realistas e narração multilíngue — padrão corporativo para treinamentos.",
+     cost:"Assinatura (sem free real). Planos por número de minutos/vídeos.",
+     pros:["Avatares e vozes de alta qualidade","Mais de 100 idiomas","Padrão em treinamento corporativo"],
+     cons:["Caro, sem versão gratuita","Avatar engessado para conteúdo criativo","Aprovação de conteúdo pode travar"]},
+    {n:"HeyGen", tier:"freemium", url:"https://www.heygen.com",
+     fn:"Avatares de IA e dublagem/tradução de vídeo mantendo a voz e o sincronismo labial do apresentador.",
+     cost:"Plano grátis com poucos minutos e marca d'água. Pagos por volume e avatares custom.",
+     pros:["Dublagem com lip-sync impressionante","Avatar a partir de selfie/foto","Tradução de vídeo realista"],
+     cons:["Minutos grátis bem limitados","Marca d'água no free","Avatar custom só no pago"]},
+    {n:"ElevenLabs", tier:"freemium", url:"https://elevenlabs.io",
+     fn:"Síntese e clonagem de voz por IA com qualidade humana e controle de emoção — narração, dublagem e personagens.",
+     cost:"Grátis ~10 mil caracteres/mês. Pagos por volume e clonagem profissional.",
+     pros:["Vozes mais realistas do mercado","Clonagem e controle de emoção","Muitos idiomas"],
+     cons:["Cota grátis pequena (~10k caracteres)","Clonagem profissional só no pago","Uso ético/consentimento exige cuidado"]},
+    {n:"Murf.ai", tier:"freemium", url:"https://murf.ai",
+     fn:"Geração de voz/locução por IA para vídeos, e-learning e podcasts, com ampla biblioteca de vozes.",
+     cost:"Grátis para testar (sem download em alguns casos). Pagos por minutos de export.",
+     pros:["Boa biblioteca de vozes profissionais","Bom para locução de e-learning","Editor de ênfase/pausa"],
+     cons:["Export/download limitado no grátis","Menos realista que ElevenLabs","Minutos pagos acabam rápido"]},
+    {n:"Suno", tier:"freemium", url:"https://suno.com",
+     fn:"Geração de música completa (instrumental + voz) a partir de um prompt — trilhas, jingles e faixas originais.",
+     cost:"Grátis com créditos diários (uso não comercial). Pagos liberam uso comercial e volume.",
+     pros:["Música completa em segundos","Ótimo para trilhas e jingles","Créditos diários grátis"],
+     cons:["Uso comercial só no pago","Direitos autorais ainda em debate","Qualidade varia por gênero"]},
+  ],
+  // ---------------- WEB ----------------
+  WEB:[
+    {n:"Gamma", tier:"freemium", url:"https://gamma.app",
+     fn:"Gera apresentações, documentos e sites completos a partir de um prompt — estrutura, design e imagens automáticos, prontos para editar.",
+     cost:"Grátis: ~400 créditos iniciais (≈10 decks). Plus ~US$9/mês para mais créditos e sem marca.",
+     pros:["Deck inteiro pronto a partir de uma frase","Faz slides, docs E sites","Design automático bonito"],
+     cons:["Créditos grátis acabam (≈10 apresentações)","Marca d'água Gamma no free","Layouts podem se repetir"]},
+    {n:"Presentations.AI", tier:"freemium", url:"https://www.presentations.ai",
+     fn:"O 'ChatGPT para apresentações': transforma um prompt, documento, URL ou vídeo do YouTube em um deck completo, com a marca aplicada e exportável para PowerPoint.",
+     cost:"Grátis (Starter, ~100 créditos, sem cartão). Pro ~US$20/mês cobrado anual (≈US$198/ano) com export PPTX, Brand Sync e analytics.",
+     pros:["Deck pronto a partir de prompt/doc/URL em segundos","Brand Sync mantém a identidade visual consistente","Certificação SOC 2 Type II — seguro para empresa"],
+     cons:["Export para PowerPoint só no plano Pro","Cobrança apenas anual (sem mensal de verdade)","Avaliações de usuários são mistas — teste antes"]},
+    {n:"AutoPPT", tier:"freemium", url:"https://autoppt.com",
+     fn:"Gerador de PPT por IA: a partir de um tema ou de um arquivo enviado (PDF, Word, Excel, imagem) monta o deck completo com texto, imagens e layout. Inclui mapas mentais.",
+     cost:"Plano/teste grátis bem limitado (poucas gerações). Pago a partir de ~US$19,99/mês (≈US$12,49/mês no anual); plano superior ~US$39,99.",
+     pros:["Converte documentos (PDF/Word/Excel) em slides","Exporta PPTX, PDF e imagem","Templates liberados para uso comercial; gera mapas mentais"],
+     cons:["Grátis é praticamente só amostra","Saída exige revisão e ajuste de design","Menos polido que concorrentes premium"]},
+    {n:"Durable", tier:"freemium", url:"https://durable.co",
+     fn:"Cria um site de negócio completo (texto, imagens, CTA) em ~30 segundos a partir de poucas respostas — com CRM e ferramentas embutidas.",
+     cost:"Monta e visualiza grátis; publicar com domínio e remover limites exige assinatura.",
+     pros:["Site no ar quase instantâneo","Inclui CRM e ferramentas de negócio","Ideal para autônomo/MEI"],
+     cons:["Publicação real exige pagar","Personalização limitada","Sites podem ficar parecidos"]},
+    {n:"Framer", tier:"freemium", url:"https://www.framer.com",
+     fn:"Construtor de sites de alto padrão visual com IA (gera e ajusta layout) — design de nível agência sem código.",
+     cost:"Plano grátis com subdomínio Framer. Pagos para domínio próprio e recursos.",
+     pros:["Qualidade visual de agência","Animações e interações refinadas","IA gera primeiro rascunho"],
+     cons:["Domínio próprio só no pago","Curva de aprendizado para layout avançado","Pode ficar caro com tráfego/CMS"]},
+    {n:"Carrd", tier:"freemium", url:"https://carrd.co",
+     fn:"Cria one-pagers e landing pages simples e elegantes — leve, rápido e barato.",
+     cost:"Grátis para sites básicos no subdomínio. Pro ~US$19/ano (muito barato) para domínio e forms.",
+     pros:["Simplíssimo e muito barato","Perfeito para link-in-bio e landing","Carrega rápido"],
+     cons:["Só páginas simples (one-page)","Domínio/forms exigem o Pro","Sem CMS/blog"]},
+    {n:"Bubble", tier:"freemium", url:"https://bubble.io",
+     fn:"Plataforma no-code para construir aplicativos web completos com banco de dados, lógica e workflows — sem programar.",
+     cost:"Plano grátis para aprender/prototipar. Pagos por workload para apps em produção.",
+     pros:["Cria apps web reais sem código","Banco de dados e lógica visual","Comunidade e plugins fortes"],
+     cons:["Curva de aprendizado considerável","Produção exige plano pago","Pode ficar lento/caro em escala"]},
+    {n:"Typedream", tier:"freemium", url:"https://typedream.com",
+     fn:"Construtor de sites estilo Notion — monta páginas bonitas rapidamente, bom para portfólios e landing pages.",
+     cost:"Grátis para começar; pagos para domínio próprio e recursos.",
+     pros:["Edição simples estilo Notion","Bonito por padrão","Rápido para portfólio/landing"],
+     cons:["Menos poderoso que Framer/Webflow","Domínio próprio no pago","Menos templates"]},
+  ],
+  // ---------------- PRJ ----------------
+  PRJ:[
+    {n:"Notion", tier:"freemium", url:"https://www.notion.so",
+     fn:"Wiki + banco de dados + tarefas tudo-em-um, com IA nativa que resume, reescreve, traduz e organiza informação.",
+     cost:"Workspace grátis permanente; Notion AI restrito a ~20 respostas de teste, depois exige assinatura.",
+     pros:["Workspace pessoal grátis para sempre","Flexível: docs, banco e tarefas juntos","Ótimo para base de conhecimento"],
+     cons:["IA grátis limitada a ~20 usos","Colaboração em time limitada no free","Pode virar bagunça sem método"]},
+    {n:"ClickUp", tier:"freemium", url:"https://clickup.com",
+     fn:"Gerenciador completo: tarefas, docs, painéis, metas e gráficos. Disponibiliza Gantt e dependências até no plano grátis.",
+     cost:"Plano grátis generoso (com Gantt). Pagos elevam armazenamento e automações.",
+     pros:["Gantt e dependências no grátis","Centraliza tudo num lugar","Muito personalizável"],
+     cons:["Limite de armazenamento e automações","Pode ser complexo demais","Performance cai com muitos dados"]},
+    {n:"Trello", tier:"freemium", url:"https://trello.com",
+     fn:"Quadros Kanban visuais e flexíveis, automatizados pelo robô Butler. Simples e direto.",
+     cost:"Grátis com até 10 quadros por workspace. Pagos liberam mais quadros e recursos.",
+     pros:["Kanban simples e visual","Automação Butler no grátis","Curva de aprendizado mínima"],
+     cons:["Limite de 10 quadros no grátis","Pouco para projetos complexos","Sem Gantt nativo"]},
+    {n:"Asana", tier:"freemium", url:"https://asana.com",
+     fn:"Atribuição de tarefas e prazos com foco em alinhamento de entregas e transparência de fluxo.",
+     cost:"Grátis para times de até 15 membros; Linha do Tempo (Gantt) bloqueada no free.",
+     pros:["Interface limpa e clara","Bom para alinhar entregas","Até 15 membros no grátis"],
+     cons:["Gantt/Timeline só no pago","Menos flexível que ClickUp","Recursos avançados pagos"]},
+    {n:"Wrike", tier:"freemium", url:"https://www.wrike.com",
+     fn:"Gestão de trabalho corporativa com análise preditiva de gargalos e detecção de riscos de projeto.",
+     cost:"Plano grátis básico para grupos pequenos. Pagos para recursos corporativos.",
+     pros:["Análise preditiva de riscos","Bom para operações maiores","Relatórios robustos"],
+     cons:["Free bem limitado","Voltado a empresa (overkill p/ pequenos)","Preço pago elevado"]},
+    {n:"Jira Software", tier:"freemium", url:"https://www.atlassian.com/software/jira",
+     fn:"Gestão ágil para desenvolvimento de software — backlog, sprints, rastreio de bugs e relatórios em tempo real.",
+     cost:"Grátis até 10 usuários e 2 GB. Pagos para mais usuários e recursos.",
+     pros:["Padrão para times de dev/ágil","Sprints, backlog e bugs integrados","Integra com todo o ecossistema Atlassian"],
+     cons:["Limite de 10 usuários no grátis","Complexo para não-devs","Pode virar burocracia"]},
+    {n:"Otter.ai", tier:"freemium", url:"https://otter.ai",
+     fn:"Transcrição ao vivo de reuniões e geração automática de atas, com identificação de quem falou.",
+     cost:"Grátis ~300 minutos/mês. Pagos elevam minutos e recursos.",
+     pros:["Transcrição ao vivo boa","Atas automáticas","Integra a Zoom/Meet/Teams"],
+     cons:["300 min/mês no grátis","Melhor em inglês","Precisão cai com áudio ruim"]},
+    {n:"Fireflies.ai", tier:"freemium", url:"https://fireflies.ai",
+     fn:"Assistente que entra em chamadas, transcreve, resume e registra as ações acordadas — integra ao CRM e a apps.",
+     cost:"Plano grátis com transcrição/armazenamento limitados. Pagos para volume e integrações.",
+     pros:["Entra sozinho nas reuniões","Resumo + itens de ação","Integra a CRM e automações"],
+     cons:["Transcrição/armazenamento limitados no free","Privacidade: bot grava tudo","Recursos pro pagos"]},
+  ],
+  // ---------------- AUT ----------------
+  AUT:[
+    {n:"Zapier", tier:"freemium", url:"https://zapier.com",
+     fn:"Integra mais de 9.000 apps e cria gatilhos lógicos (Zaps). Inclui Tables e Canvas para bancos e diagramas de processo.",
+     cost:"Grátis para Zaps simples de etapa única. Pagos para multi-step e volume.",
+     pros:["Maior catálogo de integrações (9.000+)","Sem código, fácil de começar","Tables e Canvas para processos"],
+     cons:["Grátis só ações de etapa única","Custo escala com tarefas/mês","Menos controle fino que Make"]},
+    {n:"Make.com", tier:"freemium", url:"https://www.make.com/en",
+     fn:"Automação visual em fluxogramas com controle cirúrgico sobre dados e lógica — conecta apps, bancos e modelos de IA, mais barato que o Zapier.",
+     cost:"Grátis com limite mensal de operações. Pagos por volume de operações.",
+     pros:["Fluxograma visual poderoso","Controle fino de lógica e dados","Custo-benefício melhor que Zapier"],
+     cons:["Limite mensal de operações no free","Curva de aprendizado maior","Menos integrações nativas que Zapier"]},
+    {n:"n8n", tier:"free", url:"https://n8n.io",
+     fn:"Automação open-source ('fair-code') — alternativa ao Zapier/Make que você pode auto-hospedar de graça, com nós de IA e controle total dos dados.",
+     cost:"Auto-hospedado: gratuito (open-source). Cloud oficial é pago por execução.",
+     pros:["Auto-hospedado = grátis e sem limite de operações","Dados ficam no seu servidor (privacidade)","Nós de IA e flexibilidade total"],
+     cons:["Auto-hospedar exige conhecimento técnico","Cloud gerenciado é pago","Menos 'plug-and-play' que Zapier"]},
+    {n:"Baserow", tier:"free", url:"https://baserow.io/",
+     fn:"Banco de dados relacional colaborativo open-source (estilo Airtable) — hub central para alimentar rotinas e APIs. Compatível com GDPR/SOC 2.",
+     cost:"Open-source: grátis (auto-hospedado). Cloud com plano grátis e pagos por volume.",
+     pros:["Open-source e auto-hospedável grátis","Alternativa ao Airtable com APIs","Conforme GDPR/SOC 2"],
+     cons:["Limites de linhas no cloud grátis","Auto-hospedar exige setup","Menos integrações que Airtable"]},
+    {n:"Tidio", tier:"freemium", url:"https://www.tidio.com",
+     fn:"Chatbot e atendimento por IA (Lyro) para sites e e-commerce — responde clientes 24/7 e captura leads.",
+     cost:"Plano grátis com chats limitados. Pagos por volume de conversas com IA.",
+     pros:["Chatbot grátis para começar","Atendimento 24/7 automatizado","Fácil de instalar no site"],
+     cons:["Conversas com IA limitadas no free","Respostas precisam de bom treino","Custo sobe com volume"]},
+  ],
+  // ---------------- DEV ----------------
+  DEV:[
+    {n:"Cursor", tier:"freemium", url:"https://cursor.com",
+     fn:"IDE com IA nativa (fork do VS Code). 'Composer' faz edições em vários arquivos de uma vez e indexa todo o seu repositório para responder com contexto real.",
+     cost:"Plano Hobby grátis (limitado). Pro US$20/mês, Pro+ US$60, Ultra US$200.",
+     pros:["O ambiente de IDE com IA mais usado em 2026","Edição multi-arquivo que funciona de verdade","Indexa seu código inteiro"],
+     cons:["Free trava rápido em projeto real","Modelos premium consomem créditos","Migrar do seu editor atual dá trabalho"],
+     note:"Recomendado para você: é o caminho mais suave para voltar a programar — escreve o código moderno e você revisa a lógica."},
+    {n:"GitHub Copilot", tier:"freemium", url:"https://github.com/features/copilot",
+     fn:"Assistente de código integrado a praticamente todas as IDEs (VS Code, JetBrains, Neovim). Autocompletar, chat e modo agente.",
+     cost:"Free: 2.000 completions + 50 pedidos de agente/chat por mês. Pro US$10/mês, Pro+ US$39.",
+     pros:["O único com free realmente usável","Funciona em todas as IDEs","Integração nativa com GitHub (PRs, issues)"],
+     cost_note:"A partir de 1/jun/2026 migrou para cobrança por uso (créditos) — confira no link.",
+     cons:["Modelos top consomem créditos premium","Cobrança por uso pode surpreender","Menos 'agente autônomo' que Cursor/Claude Code"]},
+    {n:"Claude Code", tier:"freemium", url:"https://www.anthropic.com/claude-code",
+     fn:"Agente da Anthropic que roda no terminal: lê seu projeto, planeja, edita vários arquivos, roda testes e pede confirmação antes de mexer. Trabalha 'no nível do projeto'.",
+     cost:"Tier grátis com limite diário. Pro US$20/mês (US$17 anual), Max US$100/200.",
+     pros:["Melhor para refatorações grandes ('reescreve esse módulo')","Pede permissão antes de alterar — você mantém o controle","Roda no terminal, sem trocar de editor"],
+     cons:["Terminal pode intimidar quem voltou agora","Free trava em projetos grandes","Opus (raciocínio máximo) exige plano alto"],
+     note:"Bom par com o Cursor: Cursor para o dia a dia, Claude Code para o trabalho pesado."},
+    {n:"v0 (Vercel)", tier:"freemium", url:"https://v0.dev",
+     fn:"Gera interfaces (UI) a partir de texto ou imagem — produz componentes React/Tailwind prontos para copiar e usar.",
+     cost:"Plano grátis com créditos mensais. Pagos por volume de gerações.",
+     pros:["Texto/imagem vira UI funcional","Código React/Tailwind limpo","Ótimo ponto de partida visual"],
+     cons:["Créditos grátis limitados","Foco em frontend (não backend)","Exige saber integrar o código gerado"]},
+    {n:"Windsurf", tier:"freemium", url:"https://windsurf.com",
+     fn:"IDE com IA (fork do VS Code, da antiga Codeium) com agente 'Cascade' para tarefas multi-passo. Free generoso.",
+     cost:"Tier individual gratuito e generoso. Pagos a partir de ~US$15/mês.",
+     pros:["Free individual realmente capaz","Agente Cascade para tarefas complexas","Boa alternativa gratuita ao Cursor"],
+     cons:["Comunidade menor que Cursor/Copilot","Recursos de time são pagos","Modelos top podem ter limites"]},
+    {n:"Cline", tier:"free", url:"https://cline.bot",
+     fn:"Agente de código open-source dentro do VS Code, com modos 'Plan' e 'Act'. Você usa o modelo que quiser (Claude, GPT, Gemini, ou local via Ollama).",
+     cost:"Ferramenta grátis (open-source). Você paga apenas os tokens do modelo escolhido (BYO key).",
+     pros:["Ferramenta 100% grátis e aberta","Escolhe qualquer modelo (até local/offline)","Modo Plan→Act dá controle"],
+     cons:["Você paga a API do modelo à parte","Setup técnico (chave de API)","Sem suporte oficial 'de produto'"],
+     note:"Para quem tem perfil técnico: dá independência total e custo só de API."},
+    {n:"Gemini CLI", tier:"free", url:"https://github.com/google-gemini/gemini-cli",
+     fn:"Agente de IA do Google no terminal, open-source — leitura/edição de código e tarefas de dev com janela de contexto enorme.",
+     cost:"Grátis com cota generosa (até ~1.000 requisições/dia).",
+     pros:["Free dos mais generosos do mercado (~1.000 req/dia)","Open-source e no terminal","Contexto gigante p/ analisar repositórios"],
+     cons:["Menos polido que Cursor/Claude Code","Qualidade abaixo dos modelos top em tarefas complexas","CLI exige conforto com terminal"]},
+    {n:"Replit AI", tier:"freemium", url:"https://replit.com",
+     fn:"IDE na nuvem com agente de IA: escreve, roda, depura e publica o app sem setup local. Bom para aprender e prototipar de qualquer lugar.",
+     cost:"Plano grátis para aprender. Core/pagos para o agente avançado e deploy.",
+     pros:["Tudo na nuvem, zero instalação","Roda e publica direto do navegador","Ótimo para reaprender programando na prática"],
+     cons:["Agente avançado e deploy são pagos","Performance depende da nuvem","Menos poder que IDE local para projetos grandes"]},
+  ],
+  // ---------------- EDU ----------------
+  EDU:[
+    {n:"Brilliant.org", tier:"paid", url:"https://brilliant.org",
+     fn:"Plataforma de matemática, lógica, ciência e (agora) IA/dados com exercícios interativos — aprende fazendo, não assistindo.",
+     cost:"Amostra grátis; conteúdo completo exige assinatura (teste disponível).",
+     pros:["Aprendizado interativo, mão na massa","Excelente para lógica e fundamentos","Ótimo para reativar raciocínio"],
+     cons:["Conteúdo cheio é pago","Em inglês","Sem certificado formal"],
+     note:"Útil pra você: reforça lógica/matemática antes de mergulhar em código novo."},
+    {n:"Codecademy", tier:"freemium", url:"https://www.codecademy.com",
+     fn:"Cursos práticos de programação e tecnologia do zero, com exercícios no navegador. Ideal para aprender as linguagens modernas na prática.",
+     cost:"Cursos básicos grátis. Pro libera projetos, trilhas e certificados.",
+     pros:["Aprende programando no navegador","Trilhas modernas (Python, JS, dados, IA)","Bom para sair do papel e codar"],
+     cons:["Projetos e trilhas completas no Pro","Conteúdo principal em inglês","Menos teoria profunda"],
+     note:"Recomendado para você: o caminho mais direto para atualizar as linguagens."},
+    {n:"FutureLearn", tier:"free", url:"https://www.futurelearn.com",
+     fn:"Cursos online de universidades britânicas em diversas áreas — acesso aos conteúdos de forma gratuita.",
+     cost:"Acesso aos cursos grátis; certificado e acesso ilimitado são pagos.",
+     pros:["Cursos de universidades renomadas","Acesso gratuito ao conteúdo","Ampla variedade de áreas"],
+     cons:["Certificado é pago","Acesso ao curso pode expirar no free","Maioria em inglês"]},
+    {n:"OpenLearn (Open University)", tier:"free", url:"https://www.open.edu/openlearn/",
+     fn:"Cursos online gratuitos de uma das maiores universidades abertas do mundo (Open University, UK).",
+     cost:"Totalmente gratuito, com distintivos (badges) sem custo em vários cursos.",
+     pros:["100% gratuito e de qualidade","Badges/declarações grátis","Catálogo amplo e sério"],
+     cons:["Em inglês","Sem diploma formal","Interface mais 'acadêmica'"]},
+    {n:"Academic Earth", tier:"free", url:"https://academicearth.org",
+     fn:"Biblioteca que agrega cursos gratuitos de universidades renomadas, organizados por área.",
+     cost:"Totalmente gratuito (agregador de cursos abertos).",
+     pros:["Reúne cursos de top universidades","Grátis e organizado por tema","Bom ponto de partida"],
+     cons:["É agregador (qualidade varia)","Em inglês","Sem trilha guiada própria"]},
+    {n:"Skillshare", tier:"paid", url:"https://www.skillshare.com",
+     fn:"Milhares de cursos criativos e de negócios (design, vídeo, marketing) em formato de aulas práticas por projetos.",
+     cost:"Modelo por assinatura, com período de teste e bolsas eventuais.",
+     pros:["Forte em criatividade e negócios","Aprendizado por projeto","Boa para skills de agência"],
+     cons:["Assinatura para acesso real","Qualidade varia por instrutor","Sem certificação reconhecida"]},
+  ],
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const tierMeta = {
+  free:     {label:"TOTALMENTE FREE", cls:"t-free",     color:"var(--free-fg)"},
+  freemium: {label:"QUASE FREE",      cls:"t-freemium", color:"var(--freemium-fg)"},
+  paid:     {label:"PAGA",            cls:"t-paid",      color:"var(--paid-fg)"},
+};
+
+// flatten + assign codes
+const ALL = [];
+CATS.forEach(cat=>{
+  (T[cat.code]||[]).forEach((tool,i)=>{
+    const code = cat.code + "-" + String(i+1).padStart(2,"0");
+    ALL.push({...tool, cat:cat.code, catName:cat.name, code});
+  });
+});
+
+document.getElementById("count-total").textContent = ALL.length;
+document.getElementById("count-free").textContent = ALL.filter(t=>t.tier==="free").length;
+
+// category nav
+const catnav = document.getElementById("catnav");
+CATS.forEach(c=>{
+  const n = (T[c.code]||[]).length;
+  if(!n) return;
+  const a = document.createElement("a");
+  a.href = "#sec-"+c.code;
+  a.innerHTML = '<span class="code">'+c.code+'</span>'+c.name.split(" · ")[0].split(" & ")[0];
+  catnav.appendChild(a);
+});
+
+// sections
+const sectionsEl = document.getElementById("sections");
+CATS.forEach(c=>{
+  const tools = ALL.filter(t=>t.cat===c.code);
+  if(!tools.length) return;
+  const sec = document.createElement("section");
+  sec.className = "cat";
+  sec.id = "sec-"+c.code;
+  sec.dataset.cat = c.code;
+  sec.innerHTML =
+    '<div class="cat-head"><span class="cat-code">'+c.code+'</span>'+
+    '<h2>'+c.name+'</h2><span class="count">'+tools.length+' ferramentas</span></div>'+
+    '<div class="grid"></div>';
+  const grid = sec.querySelector(".grid");
+  tools.forEach(t=>{
+    const tm = tierMeta[t.tier];
+    const btn = document.createElement("button");
+    btn.className = "card";
+    btn.dataset.tier = t.tier;
+    btn.dataset.search = (t.n+" "+t.fn+" "+t.catName).toLowerCase();
+    btn.setAttribute("aria-label","Abrir ficha de "+t.n);
+    btn.innerHTML =
+      '<div class="card-top"><span class="card-code">'+t.code+'</span>'+
+      '<span class="pill '+tm.cls+'">'+tm.label+'</span></div>'+
+      '<h3>'+t.n+'</h3>'+
+      '<p>'+t.fn.split(" — ")[0].split(". ")[0]+'.</p>'+
+      '<span class="open">abrir ficha <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>';
+    btn.addEventListener("click", ()=>openPanel(t));
+    grid.appendChild(btn);
+  });
+  sectionsEl.appendChild(sec);
+});
+
+/* ----------- DETAIL PANEL ----------- */
+const scrim = document.getElementById("scrim");
+const panel = document.getElementById("panel");
+let lastFocus = null;
+
+function searchUrl(name){
+  return "https://www.google.com/search?q="+encodeURIComponent("exemplos reais feitos com "+name);
+}
+
+function openPanel(t){
+  lastFocus = document.activeElement;
+  const tm = tierMeta[t.tier];
+  document.getElementById("panel-ribbon").style.background = tm.color;
+  document.getElementById("panel-code").textContent = t.code;
+  document.getElementById("panel-pill").innerHTML = '<span class="pill '+tm.cls+'">'+tm.label+'</span>';
+  document.getElementById("panel-name").textContent = t.n;
+  document.getElementById("panel-cat").textContent = t.catName;
+
+  let html = "";
+  html += '<div class="field"><div class="flabel">Função (o que a IA faz)</div><p>'+t.fn+'</p></div>';
+
+  html += '<div class="field"><div class="flabel">Custo</div><div class="costbox">'+t.cost+
+          (t.cost_note? '<div style="margin-top:8px;color:var(--paid-fg);font-size:13px;">⚠ '+t.cost_note+'</div>':'')+
+          '</div></div>';
+
+  html += '<div class="field"><div class="flabel">Vantagens</div><ul class="bullets pros">'+
+          t.pros.map(p=>'<li>'+p+'</li>').join("")+'</ul></div>';
+
+  html += '<div class="field"><div class="flabel">Limitações</div><ul class="bullets cons">'+
+          t.cons.map(p=>'<li>'+p+'</li>').join("")+'</ul></div>';
+
+  if(t.note){
+    html += '<div class="field"><div class="flabel" style="color:var(--brand)">Nota da curadoria</div>'+
+            '<p style="font-size:14px;color:var(--ink-soft)">'+t.note+'</p></div>';
+  }
+
+  html += '<div class="field"><div class="flabel">Acessar</div><div class="links">'+
+          '<a class="lbtn primary" href="'+t.url+'" target="_blank" rel="noopener">Site oficial <span class="arrow">↗</span></a>'+
+          '<a class="lbtn ghost" href="'+searchUrl(t.n)+'" target="_blank" rel="noopener">Ver exemplos na web <span class="arrow">↗</span></a>'+
+          '</div></div>';
+
+  document.getElementById("panel-body").innerHTML = html;
+  document.getElementById("panel-body").scrollTop = 0;
+  scrim.classList.add("show");
+  panel.classList.add("show");
+  document.body.style.overflow = "hidden";
+  document.getElementById("closebtn").focus();
+}
+function closePanel(){
+  scrim.classList.remove("show");
+  panel.classList.remove("show");
+  document.body.style.overflow = "";
+  if(lastFocus) lastFocus.focus();
+}
+document.getElementById("closebtn").addEventListener("click", closePanel);
+scrim.addEventListener("click", closePanel);
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && panel.classList.contains("show")) closePanel(); });
+
+/* ----------- FILTERS ----------- */
+let curTier = "all";
+let curText = "";
+function applyFilter(){
+  let anyVisible = false;
+  document.querySelectorAll("section.cat").forEach(sec=>{
+    let secVisible = false;
+    sec.querySelectorAll(".card").forEach(card=>{
+      const okTier = curTier==="all" || card.dataset.tier===curTier;
+      const okText = !curText || card.dataset.search.includes(curText);
+      const show = okTier && okText;
+      card.style.display = show ? "" : "none";
+      if(show){ secVisible = true; anyVisible = true; }
+    });
+    sec.style.display = secVisible ? "" : "none";
+  });
+  document.getElementById("empty").style.display = anyVisible ? "none" : "block";
+}
+document.getElementById("tier-filters").addEventListener("click", e=>{
+  const b = e.target.closest(".fbtn"); if(!b) return;
+  document.querySelectorAll("#tier-filters .fbtn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  curTier = b.dataset.tier;
+  applyFilter();
+});
+document.getElementById("search").addEventListener("input", e=>{
+  curText = e.target.value.trim().toLowerCase();
+  applyFilter();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "id": "catalogo-ia-mobile",
+  "name": "Catálogo de Ferramentas de IA — Mobile",
+  "short_name": "Catálogo IA",
+  "description": "Referência rápida de ferramentas de IA por atividade, classificadas por custo. Versão mobile.",
+  "lang": "pt-BR",
+  "start_url": "mobile.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f3ee",
+  "theme_color": "#4b3bd6",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
