@@ -1,8 +1,8 @@
 {
-  "id": "catalogo-ia-desktop",
-  "name": "Catálogo de Ferramentas de IA — Desktop",
-  "short_name": "Catálogo IA (PC)",
-  "description": "Referência rápida de ferramentas de IA por atividade, classificadas por custo. Versão desktop.",
+  "id": "jlmendonca-catalogo-ia-desktop",
+  "name": "JLMendonca · Catálogo de IA (PC)",
+  "short_name": "Catálogo IA",
+  "description": "Catálogo de ferramentas de IA por atividade, classificadas por custo. Versão desktop. Organizado por Jose Luiz Mendonca.",
   "lang": "pt-BR",
   "start_url": "desktop.html",
   "scope": "./",

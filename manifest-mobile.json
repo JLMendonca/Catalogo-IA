@@ -1,8 +1,8 @@
 {
-  "id": "catalogo-ia-mobile",
-  "name": "Catálogo de Ferramentas de IA — Mobile",
+  "id": "jlmendonca-catalogo-ia-mobile",
+  "name": "JLMendonca · Catálogo de IA",
   "short_name": "Catálogo IA",
-  "description": "Referência rápida de ferramentas de IA por atividade, classificadas por custo. Versão mobile.",
+  "description": "Catálogo de ferramentas de IA por atividade, classificadas por custo. Versão mobile. Organizado por Jose Luiz Mendonca.",
   "lang": "pt-BR",
   "start_url": "mobile.html",
   "scope": "./",
