@@ -1099,7 +1099,16 @@ document.getElementById("search").addEventListener("input", e=>{
   if(btn) btn.addEventListener('click',function(){ if(deferred){ deferred.prompt();
     deferred.userChoice.then(function(){ deferred=null; bar.style.display='none'; }); } });
   if(dis) dis.addEventListener('click',function(){ bar.style.display='none'; sessionStorage.setItem('pwa-dismissed','1'); });
-  window.addEventListener('appinstalled',function(){ bar.style.display='none'; });
+  window.addEventListener('appinstalled',function(){
+    bar.style.display='none';
+    // Contador de instalacoes (uma vez por aparelho)
+    try{
+      if(!localStorage.getItem('instalou')){
+        localStorage.setItem('instalou','1');
+        fetch('https://catalogo-ia-contador-production.up.railway.app/hit?plataforma=desktop',{method:'POST',keepalive:true}).catch(function(){});
+      }
+    }catch(e){}
+  });
   if(isIOS && !standalone){ txt.innerHTML='📲 Toque em <b>Compartilhar</b> e depois em <b>"Adicionar à Tela de Início"</b>'; if(btn) btn.style.display='none'; show(); }
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){}); }
 })();
