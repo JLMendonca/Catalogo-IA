@@ -1,8 +1,8 @@
-/* Service Worker — Catálogo de Ferramentas de IA (PWA) v2
+/* Service Worker — Catálogo de Ferramentas de IA (PWA) v3
    Cacheia as páginas e os ícones para funcionar offline.
-   AO ATUALIZAR O CATÁLOGO: troque o número da versão abaixo (v2 -> v3...)
+   AO ATUALIZAR O CATÁLOGO: troque o número da versão abaixo (v3 -> v4...)
    para forçar a atualização nos aparelhos já instalados. */
-const CACHE = "catalogo-ia-v2";
+const CACHE = "catalogo-ia-v3";
 const ASSETS = [
   "./",
   "./index.html",
